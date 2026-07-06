@@ -1,69 +1,148 @@
-import React from 'react';
-import { Box, AppBar, Toolbar, Typography, InputBase, IconButton, Grid, Card, CardMedia, CardContent, Paper } from '@mui/material';
-import { Menu as MenuIcon, Search as SearchIcon, VideoCall, Notifications, AccountCircle, Home, Whatshot, Subscriptions } from '@mui/icons-material';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-
-const darkTheme = createTheme({
-  palette: {
-    mode: 'dark',
-    background: { default: '#0f0f0f', paper: '#0f0f0f' },
-    text: { primary: '#fff' },
-  },
-});
-
-function App() {
-  const mockVideos = Array.from({ length: 8 });
-
-  return (
-    <ThemeProvider theme={darkTheme}>
-      <Box sx={{ flexGrow: 1, bgcolor: 'background.default', minHeight: '100vh', color: 'text.primary' }}>
-        <AppBar position="sticky" sx={{ bgcolor: '#0f0f0f', backgroundImage: 'none', boxShadow: 'none' }}>
-          <Toolbar sx={{ justifyContent: 'space-between' }}>
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-              <IconButton edge="start" color="inherit"><MenuIcon /></IconButton>
-              <Typography variant="h6" fontWeight="bold" sx={{ color: '#fff', letterSpacing: '-1px' }}>YouTube</Typography>
-            </Box>
-            <Paper component="form" sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 400, bgcolor: '#121212', border: '1px solid #303030', borderRadius: 20 }}>
-              <InputBase sx={{ ml: 2, flex: 1, color: 'white' }} placeholder="Search" />
-              <IconButton type="button" sx={{ p: '10px', bgcolor: '#222', borderRadius: '0 20px 20px 0' }} color="inherit">
-                <SearchIcon />
-              </IconButton>
-            </Paper>
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-              <IconButton color="inherit"><VideoCall /></IconButton>
-              <IconButton color="inherit"><Notifications /></IconButton>
-              <IconButton color="inherit"><AccountCircle /></IconButton>
-            </Box>
-          </Toolbar>
-        </AppBar>
-
-        <Box sx={{ display: 'flex' }}>
-          <Box sx={{ width: 240, p: 2, display: { xs: 'none', md: 'block' } }}>
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 3, mb: 2.5, cursor: 'pointer' }}><Home /> <Typography>Home</Typography></Box>
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 3, mb: 2.5, cursor: 'pointer' }}><Whatshot /> <Typography>Trending</Typography></Box>
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 3, mb: 2.5, cursor: 'pointer' }}><Subscriptions /> <Typography>Subscriptions</Typography></Box>
-          </Box>
-
-          <Box sx={{ flexGrow: 1, p: 3 }}>
-            <Grid container spacing={2}>
-              {mockVideos.map((_, index) => (
-                <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
-                  <Card sx={{ bgcolor: 'transparent', backgroundImage: 'none', boxShadow: 'none' }}>
-                    <CardMedia component="img" height="140" image={`https://picsum.photos/300/160?random=${index}`} alt="Thumbnail" sx={{ borderRadius: 3 }} />
-                    <CardContent sx={{ px: 0, pt: 1 }}>
-                      <Typography variant="body1" fontWeight="bold" noWrap>Clone Video Title {index + 1}</Typography>
-                      <Typography variant="body2" color="gray" sx={{ mt: 0.5 }}>Channel Creator Name</Typography>
-                      <Typography variant="caption" color="gray">100K views • 2 days ago</Typography>
-                    </CardContent>
-                  </Card>
-                </Grid>
-              ))}
-            </Grid>
-          </Box>
-        </Box>
-      </Box>
-    </ThemeProvider>
-  );
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
 }
 
-export default App;
+body {
+  background-color: #0f0f0f;
+  color: white;
+  overflow-x: hidden;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #0f0f0f;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #181818;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #606060;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #909090;
+}
+
+/* Links */
+a {
+  text-decoration: none;
+  color: white;
+}
+
+/* Images */
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* Buttons */
+button {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background: transparent;
+  color: white;
+}
+
+/* Inputs */
+input {
+  outline: none;
+  border: none;
+}
+
+/* Main Layout */
+.app {
+  display: flex;
+  background: #0f0f0f;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 240px;
+  height: 100vh;
+  background: #0f0f0f;
+  position: fixed;
+  left: 0;
+  top: 64px;
+  overflow-y: auto;
+}
+
+/* Content */
+.content {
+  margin-left: 240px;
+  padding: 20px;
+  width: calc(100% - 240px);
+}
+
+/* Video Grid */
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+/* Video Card */
+.video-card {
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.video-card:hover {
+  transform: scale(1.02);
+}
+
+.video-card img {
+  width: 100%;
+  border-radius: 12px;
+}
+
+.video-info {
+  display: flex;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.video-info img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+}
+
+.video-details h4 {
+  font-size: 16px;
+  color: white;
+  margin-bottom: 4px;
+}
+
+.video-details p {
+  font-size: 14px;
+  color: #aaaaaa;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .sidebar {
+    display: none;
+  }
+
+  .content {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .video-grid {
+    grid-template-columns: 1fr;
+  }
+}
