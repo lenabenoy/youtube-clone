@@ -103,7 +103,7 @@ const CATEGORIES = ["All", "JavaScript", "Next.js", "Live", "Music", "Gaming", "
 
 export default function YouTubeClone() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-  const [activeVideo, setActiveVideo] = useState(null); // Keeps track of what video is currently playing
+  const [activeVideo, setActiveVideo] = useState<any | null>(null); // Keeps track of what video is currently playing
 
   return (
     <div className="min-h-screen bg-[#0f0f0f] text-[#f1f1f1] font-sans antialiased selection:bg-neutral-700">
@@ -215,8 +215,7 @@ export default function YouTubeClone() {
                 {/* 16:9 Aspect Frame container */}
                 <div className="relative aspect-video w-full rounded-2xl overflow-hidden bg-neutral-900 shadow-2xl border border-neutral-800">
                   <iframe
-                    src={`https://www.youtube.com/embed/${activeVideo.id}?autoplay=1&rel=0`}
-                    title={activeVideo.title}
+src={`https://www.youtube.com/embed/${activeVideo.id}?autoplay=1&rel=0`}                    title={activeVideo.title}
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
                     className="absolute top-0 left-0 w-full h-full border-0"
@@ -312,7 +311,8 @@ export default function YouTubeClone() {
   );
 }
 
-function SidebarItem({ icon, label, active = false }) {
+// TypeScript typed Sidebar Component helper
+function SidebarItem({ icon, label, active = false }: { icon: React.ReactNode; label: string; active?: boolean }) {
   return (
     <button className={`w-full flex items-center gap-6 px-3 py-2 rounded-xl text-[14px] font-normal transition-colors duration-100 cursor-pointer
       ${active ? 'bg-[#222222] font-medium text-white' : 'hover:bg-[#272727] text-[#f1f1f1]'}`}>
@@ -322,7 +322,8 @@ function SidebarItem({ icon, label, active = false }) {
   );
 }
 
-function MiniSidebarItem({ icon, label }) {
+// TypeScript typed Mini Sidebar Component helper
+function MiniSidebarItem({ icon, label }: { icon: React.ReactNode; label: string }) {
   return (
     <button className="w-full flex flex-col items-center justify-center py-4 rounded-xl hover:bg-[#272727] transition-colors duration-100 cursor-pointer text-[#f1f1f1]">
       {icon}
